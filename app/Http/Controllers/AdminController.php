@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,6 +51,15 @@ class AdminController extends Controller
             ], 400);
         }
 
+        // Assuming you've authenticated the admin
+        // $admin = Auth::guard('admin')->user();
+
+        // Create a token for the admin
+        $token = $data->createToken('admin-token')->plainTextToken;
+
+        // $responseData = $data->toArray();
+        // $responseData["token"] = $token;
+        $data["token"] = $token;
         return response()->json([
             'meta' => [
                 'code' => 200,
