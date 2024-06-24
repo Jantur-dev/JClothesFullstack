@@ -55,16 +55,18 @@ class AdminController extends Controller
         // $admin = Auth::guard('admin')->user();
 
         // Create a token for the admin
-        $admin = $data;
-        $token = $admin->createToken('admin-token')->plainTextToken;
+        $token = $data->createToken('admin-token')->plainTextToken;
 
+        // $responseData = $data->toArray();
+        // $responseData["token"] = $token;
+        $data["token"] = $token;
         return response()->json([
             'meta' => [
                 'code' => 200,
                 'message' => 'success',
                 'status' => 'success'
             ],
-            'data' => [$data, 'token' => $token]
+            'data' => $data
         ]);
     }
 }
